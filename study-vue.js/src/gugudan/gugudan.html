@@ -1,10 +1,52 @@
+<!-- *구구단*
+1. 자동으로 문제 출력
+2. 입력 버튼 클릭 시 정답체크
+3. 정답/오답 출력
+4. 정답 시 input focus
+5. 새로고침x 
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>구구단</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+    <div id="root">
+        <div>{{first}} 곱하기 {{second}}는?</div>
+        <form v-on:submit="onSubmitForm">
+            <input type="number" ref="answer" v-model="value">
+            <button type="submit">입력</button>
+        </form>
+        <div id="result">{{result}}</div>
+    </div>
 </body>
+<script>
+    const app = new Vue({
+        el: '#root',
+        data: {
+            first: Math.ceil(Math.random() * 9),
+            second:Math.ceil(Math.random() * 9),
+            value: '',
+            result: ''
+        },
+        methods: {
+            onSubmitForm(e){
+                e.preventDefault();
+                if(this.first * this.second === parseInt(this.value)) {
+                    this.first = Math.ceil(Math.random() * 9);
+                    this.second = Math.ceil(Math.random() * 9);
+                    this.result = '정답';
+                    this.$refs.answer.focus();
+                } else{
+                    this.result = '오답';
+                }
+
+                this.value = '';
+            }
+        },
+    })
+</script>
 </html>
