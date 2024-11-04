@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <div>{{firstWord}}</div>
+        <form v-on:submit="onSubmitForm">
+            <input type="text" v-model="secondWord" ref="answer">
+            <button type="submit">입력</button>
+        </form>
+        <div>{{result}}</div>
+    </div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#root',
+        data :{
+            firstWord: '제로초',
+            secondWord: '',
+            result: '',
+        },
+        methods: {
+            onSubmitForm(e){
+                e.preventDefault();
+                if(this.firstWord.slice(-1) === this.secondWord.slice(0, 1)){
+                    this.result = '딩동댕';
+                    this.firstWord = this.secondWord;
+                } else{
+                    this.result = '땡';
+                }
+                this.$refs.answer.focus();
+                this.secondWord = '';
+            }
+        },
+    });
+</script>
+</html>
