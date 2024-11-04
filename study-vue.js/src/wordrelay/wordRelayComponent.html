@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>끝말잇기</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <word-rely></word-rely>
+        <word-rely></word-rely>
+        <word-rely></word-rely>
+    </div>
+<script>
+    /* 전역 컴포넌트 */
+    Vue.component('word-rely', {
+        template: `
+            <div>
+                <div>{{firstWord}}</div>
+                <form v-on:submit="onSubmitForm">
+                    <input type="text" v-model="secondWord" ref="answer">
+                    <button type="submit">입력</button>
+                </form>
+                <div>{{result}}</div>
+            </div>
+        `,
+        /*컴포넌트에서는 데이터를 함수로 작성*/
+        data() {
+            return {
+                firstWord: '제로초',
+                secondWord: '',
+                result: '',
+            };
+        },
+        methods: {
+            onSubmitForm(e){
+                e.preventDefault();
+                if(this.firstWord.slice(-1) === this.secondWord.slice(0, 1)){
+                    this.result = '딩동댕';
+                    this.firstWord = this.secondWord;
+                } else{
+                    this.result = '땡';
+                }
+                this.$refs.answer.focus();
+                this.secondWord = '';
+            }
+        },
+    }) 
+</script>
+<script>
+    const app = new Vue({
+        el: '#root',
+    });
+</script>
+</body>
+</html>
