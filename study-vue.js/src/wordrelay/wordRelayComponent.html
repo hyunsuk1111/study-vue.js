@@ -8,9 +8,9 @@
 </head>
 <body>
     <div id="root">
-        <word-rely></word-rely>
-        <word-rely></word-rely>
-        <word-rely></word-rely>
+        <word-rely start-word="제로초"></word-rely>
+        <word-rely start-word="초밥"></word-rely>
+        <word-rely start-word="바보"></word-rely>
     </div>
 <script>
     /* 전역 컴포넌트 */
@@ -25,10 +25,11 @@
                 <div>{{result}}</div>
             </div>
         `,
+        props: ['startWord'],
         /*컴포넌트에서는 데이터를 함수로 작성*/
         data() {
             return {
-                firstWord: '제로초',
+                firstWord: this.startWord,
                 secondWord: '',
                 result: '',
             };
